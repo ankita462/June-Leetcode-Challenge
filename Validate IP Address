@@ -1,0 +1,46 @@
+class Solution:
+    def ipv4(self,IP):
+        arr=IP.split('.')
+        for ele in arr:
+            try:
+                st=str(ele)
+            except:
+                return 'Neither'
+            if st.isnumeric() == False:
+                return 'Neither'
+            if len(st)==1:
+                continue
+            if len(st)>1 and st[0]=='0':
+                return 'Neither'
+            if not(int(ele)>=0 and int(ele)<=255):
+                return 'Neither'
+        return 'IPv4'
+    def ipv6(self,IP):
+        arr=IP.split(':')
+        for ele in arr:
+            try:
+                st=str(ele)
+            except:
+                return 'Neither'
+            if st.isalnum()==False:
+                return 'Neither'
+            if len(st)==0 or len(st)>4:
+                return 'Neither'
+            for e in st:
+                if e.isalpha() and e.isupper() and e>='G':
+                    # print(e)
+                    return 'Neither'
+                elif e.isalpha() and e.islower() and e>='g':
+                    # print(e)
+                    return 'Neither'
+            
+        return 'IPv6'
+    def validIPAddress(self, IP: str) -> str:
+        dot=IP.count('.')
+        colon=IP.count(':')
+        ans="Neither"
+        if dot==3:
+            ans=self.ipv4(IP)
+        elif colon==7:
+            ans=self.ipv6(IP)
+        return ans
